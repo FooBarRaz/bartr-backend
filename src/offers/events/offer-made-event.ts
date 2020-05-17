@@ -4,7 +4,7 @@ export class OfferMadeEvent implements IEvent {
     constructor
     (public readonly id: string,
      public readonly userId: string,
-     public readonly offer: string,
+     public readonly offering: string,
      public readonly quantity: number,
      public readonly comment: string,
      public readonly location: string,

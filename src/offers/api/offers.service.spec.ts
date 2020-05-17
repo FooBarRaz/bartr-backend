@@ -21,12 +21,12 @@ describe('OffersService', () => {
   it('should ', () => {
 
     const offer: CreateOfferDto = {
-      comment: faker.random.words(6),
+      comment: faker.company.catchPhrase(),
       location: faker.random.alphaNumeric(6),
       startTime: faker.date.past(),
       endTime: faker.date.future(),
       quantity: faker.random.number(5),
-      offering: faker.random.words(3)
+      offering: faker.commerce.productName()
     }
 
     console.log(JSON.stringify(offer, null, 2))

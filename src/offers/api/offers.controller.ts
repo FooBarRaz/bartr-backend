@@ -1,4 +1,4 @@
-import {Body, Controller, Post} from '@nestjs/common';
+import {Body, Controller, Get, Post} from '@nestjs/common';
 import {OffersService} from "./offers.service";
 import CreateOfferDto from "./models/create-offer-dto";
 import {v4 as uuidv4 } from 'uuid';
@@ -14,4 +14,8 @@ export class OffersController {
         return this.offersService.createOffer(uuidv4(), dto);
     }
 
+    @Get()
+    getAll() {
+        return this.offersService.getAll();
+    }
 }

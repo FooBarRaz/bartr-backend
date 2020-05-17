@@ -1,17 +1,22 @@
 import {EventsHandler} from "@nestjs/cqrs";
 import {OfferMadeEvent} from "./offer-made-event";
 import {Logger} from "@nestjs/common";
-
-class OfferReadRepository {
-}
-
-class Offer {
-}
+import {OfferEntity} from "../query/models/offer.entity";
+import {Repository} from "typeorm";
+import {InjectRepository} from "@nestjs/typeorm";
 
 @EventsHandler(OfferMadeEvent)
 export class OfferMadeEventHandler {
+    constructor(
+        @InjectRepository(OfferEntity)
+        private offersRepository: Repository<OfferEntity>) {
+
+    }
+
     handle(event: OfferMadeEvent) {
-        Logger.log(`handled Offer made event: ${JSON.stringify(event, null, 2)}`)
+        const offerEntity = this.offersRepository.create(event as OfferEntity);
+        this.offersRepository.insert(offerEntity)
+            .then(entity => Logger.log(`created new Offer: ${JSON.stringify(entity, null, 2)}`));
     }
 
 }
