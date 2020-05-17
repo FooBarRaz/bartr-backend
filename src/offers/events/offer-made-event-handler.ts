@@ -1,6 +1,6 @@
 import {EventsHandler} from "@nestjs/cqrs";
 import {OfferMadeEvent} from "./offer-made-event";
-import {Logger} from "@nestjs/common";
+import {Inject, Logger} from "@nestjs/common";
 import {OfferEntity} from "../query/models/offer.entity";
 import {Repository} from "typeorm";
 import {InjectRepository} from "@nestjs/typeorm";
@@ -8,7 +8,7 @@ import {InjectRepository} from "@nestjs/typeorm";
 @EventsHandler(OfferMadeEvent)
 export class OfferMadeEventHandler {
     constructor(
-        @InjectRepository(OfferEntity)
+        @Inject('OFFER_REPOSITORY')
         private offersRepository: Repository<OfferEntity>) {
 
     }

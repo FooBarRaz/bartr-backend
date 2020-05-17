@@ -5,6 +5,6 @@ export const offerProviders = [
     {
         provide: 'OFFER_REPOSITORY',
         useFactory: (connection: Connection) => connection.getRepository(OfferEntity),
-        inject: [Connection],
+        inject: ['POSTGRES_CONNECTION'],
     }
 ]

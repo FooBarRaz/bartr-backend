@@ -1,5 +1,4 @@
 import {Schema} from 'mongoose';
-import {User} from "./user";
 
 export const UserSchema = new Schema({
     id: String,

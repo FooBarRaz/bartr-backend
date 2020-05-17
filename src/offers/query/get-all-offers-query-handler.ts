@@ -2,12 +2,12 @@ import {QueryHandler} from "@nestjs/cqrs";
 import {GetAllOffersQuery} from "./get-all-offers-query";
 import {OfferEntity} from "./models/offer.entity";
 import {Repository} from "typeorm";
-import {InjectRepository} from "@nestjs/typeorm";
+import {Inject} from "@nestjs/common";
 
 @QueryHandler(GetAllOffersQuery)
 export class GetAllOffersQueryHandler {
     constructor(
-        @InjectRepository(OfferEntity)
+        @Inject('OFFER_REPOSITORY')
         private offerRepository: Repository<OfferEntity>) { }
 
     async execute(query: GetAllOffersQuery) {
