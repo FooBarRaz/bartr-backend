@@ -9,6 +9,8 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
+    "incremental": true,
+    "lib": ["esnext"],
     "paths": {
       "@bartr/db": [
         "libs/db/src"

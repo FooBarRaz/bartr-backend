@@ -22,11 +22,11 @@
       "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js"
    },
    "dependencies": {
-      "@nestjs/common": "^7.0.0",
+      "@nestjs/common": "^7.0.13",
       "@nestjs/config": "^0.4.2",
-      "@nestjs/core": "^7.0.0",
+      "@nestjs/core": "^7.0.13",
       "@nestjs/cqrs": "^6.1.0",
-      "@nestjs/platform-express": "^7.0.0",
+      "@nestjs/platform-express": "^7.0.13",
       "@nestjs/typeorm": "^7.0.0",
       "faker": "^4.1.0",
       "mongoose": "^5.9.14",
@@ -39,13 +39,13 @@
    "devDependencies": {
       "@nestjs/cli": "^7.0.0",
       "@nestjs/schematics": "^7.0.0",
-      "@nestjs/testing": "^7.0.0",
+      "@nestjs/testing": "^7.0.13",
       "@types/express": "^4.17.3",
+      "@types/faker": "^4.1.12",
       "@types/jest": "25.1.4",
-      "@types/mongoose": "^5.7.19",
+      "@types/mongoose": "^5.7.20",
       "@types/node": "^8.0.29",
       "@types/supertest": "^2.0.8",
-      "@types/faker": "^4.1.11",
       "@typescript-eslint/eslint-plugin": "^2.23.0",
       "@typescript-eslint/parser": "^2.23.0",
       "eslint": "^6.8.0",
@@ -56,9 +56,9 @@
       "supertest": "^4.0.2",
       "ts-jest": "25.2.1",
       "ts-loader": "^6.2.1",
-      "ts-node": "3.3.0",
+      "ts-node": "^3.3.0",
       "tsconfig-paths": "^3.9.0",
-      "typescript": "3.3.3333"
+      "typescript": "^3.9.2"
    },
    "jest": {
       "moduleFileExtensions": [
