@@ -4,14 +4,15 @@ import {OffersService} from './api/offers.service';
 import {CqrsModule} from "@nestjs/cqrs";
 import {MakeOfferCommandHandler} from "./commands/make-offer-command-handler";
 import {OfferMadeEventHandler} from "./events/offer-made-event-handler";
-import {Connection, createConnection} from "typeorm";
+import {Connection} from "typeorm";
 import {offerProviders} from "./query/models/offer.provider";
 import {GetAllOffersQueryHandler} from "./query/get-all-offers-query-handler";
-import {ConfigModule, ConfigService} from "@nestjs/config";
+import {ConfigModule} from "@nestjs/config";
 import {OfferEntity} from "./query/models/offer.entity";
+import {DbModule} from "@bartr/db/db.module";
 
 @Module({
-  imports: [CqrsModule, ConfigModule.forRoot()],
+  imports: [CqrsModule, ConfigModule.forRoot(), DbModule],
   controllers: [OffersController],
   providers: [OffersService,
       MakeOfferCommandHandler,
@@ -19,19 +20,9 @@ import {OfferEntity} from "./query/models/offer.entity";
       OfferMadeEventHandler,
       {
           provide: 'POSTGRES_CONNECTION',
-          inject: [ConfigService],
-          useFactory: (configService: ConfigService) => {
-              return createConnection({
-                  type: configService.get('TYPEORM_CONNECTION'),
-                  host: configService.get('TYPEORM_HOST'),
-                  port: configService.get('TYPEORM_PORT'),
-                  username: configService.get('TYPEORM_USERNAME'),
-                  password: configService.get('TYPEORM_PASSWORD'),
-                  database: configService.get('TYPEORM_DATABASE'),
-                  synchronize: true,
-                  entities: [ OfferEntity ]
-              });
-          }
+          inject: ['POSTGRES_CONNECTION_PROVIDER'],
+          useFactory: (connectionProvider: any) =>
+              connectionProvider([OfferEntity], 'offers')
       },
       ...offerProviders]
 })

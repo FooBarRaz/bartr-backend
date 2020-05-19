@@ -1,7 +1,14 @@
-import {Document } from 'mongoose';
+import {Column, Entity, PrimaryColumn} from "typeorm";
 
-export interface User extends Document {
-        readonly id: string;
-        readonly name: string;
-        readonly email: string;
+
+@Entity()
+export class User {
+        @PrimaryColumn()
+        id: string;
+
+        @Column()
+        name: string;
+
+        @Column()
+        email: string;
 }

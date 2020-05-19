@@ -8,15 +8,22 @@ import {CqrsModule} from "@nestjs/cqrs";
 import {UserCreatedEventHandler} from "./events/user-created-event-handler";
 import {userProviders} from "./query/models/user.provider";
 import {DbModule} from "@bartr/db";
+import {User} from "./query/models/user";
+import {ConfigModule} from "@nestjs/config";
 
 
 const commandHandlers = [CreateUserCommandHandler];
 const queryHandlers = [GetAllUsersQueryHandler];
 
 @Module({
-    imports: [CqrsModule, DbModule ],
+    imports: [CqrsModule, DbModule, ConfigModule.forRoot()],
     controllers: [UsersController],
     providers: [
+        {
+            provide: 'POSTGRES_CONNECTION',
+            inject: ['POSTGRES_CONNECTION_PROVIDER'],
+            useFactory: (connectionProvider: any) => connectionProvider([User], 'users')
+        },
         UsersService,
         UserReadRepository,
         UserCreatedEventHandler,

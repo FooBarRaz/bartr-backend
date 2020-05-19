@@ -1,10 +1,10 @@
-import { Connection } from 'mongoose';
-import { UserSchema } from "./user.schema";
+import {Connection} from "typeorm";
+import {User} from "./user";
 
 export const userProviders = [
     {
-        provide: 'USER_MODEL',
-        useFactory: (connection: Connection) => connection.model('User', UserSchema),
-        inject: ['MONGODB_CONNECTION'],
+        provide: 'USER_REPOSITORY',
+        useFactory: (connection: Connection) => connection.getRepository(User),
+        inject: ['POSTGRES_CONNECTION']
     }
 ]

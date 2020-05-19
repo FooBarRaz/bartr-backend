@@ -1,30 +1,27 @@
 import * as mongoose from 'mongoose';
 import {ConfigModule, ConfigService} from "@nestjs/config";
 import {createConnection} from "typeorm";
+import {Logger} from "@nestjs/common";
 
 export const databaseProviders = [
     {
-        provide: 'MONGODB_CONNECTION',
-        imports: [ConfigModule],
+        provide: 'POSTGRES_CONNECTION_PROVIDER',
+        imports: [ConfigModule.forRoot()],
         inject: [ConfigService],
-        useFactory: (configService: ConfigService): Promise<typeof mongoose> =>
-            mongoose.connect(configService.get<string>('MONGO_CONNECTION_STRING'))
-    },
-    // {
-    //     provide: 'POSTGRES_CONNECTION',
-    //     imports: [ConfigModule],
-    //     inject: [ConfigService],
-    //     useFactory: (configService: ConfigService) => createConnection({
-    //         type: configService.get('TYPEORM_CONNECTION'),
-    //         host: configService.get('TYPEORM_HOST'),
-    //         port: configService.get('TYPEORM_PORT'),
-    //         username: configService.get('TYPEORM_USERNAME'),
-    //         password: configService.get('TYPEORM_PASSWORD'),
-    //         database: configService.get('TYPEORM_DATABASE'),
-    //         synchronize: true,
-    //         entities: [
-    //             // __dirname + '/../**/*.entity{.ts,.js}',
-    //         ]
-    //     })
-    // }
+        useFactory: (configService: ConfigService) => (entities, database) => {
+            const options = {
+                type: 'postgres',
+                host: configService.get('BARTR_POSTGRES_HOST'),
+                port: configService.get('BARTR_POSTGRES_PORT'),
+                username: configService.get('BARTR_POSTGRES_USERNAME'),
+                password: configService.get('BARTR_POSTGRES_PASSWORD'),
+                database: database,
+                entities: entities,
+                synchronize: true
+            };
+            Logger.log(JSON.stringify(options));
+            return createConnection(options as any);
+        }
+    }
 ];
+
