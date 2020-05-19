@@ -1,6 +1,5 @@
 import {Inject, Injectable} from '@nestjs/common';
 import {User} from "./models/user";
-import {Model} from "mongoose";
 import {Repository} from "typeorm";
 
 @Injectable()

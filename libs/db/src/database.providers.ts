@@ -1,4 +1,3 @@
-import * as mongoose from 'mongoose';
 import {ConfigModule, ConfigService} from "@nestjs/config";
 import {createConnection} from "typeorm";
 import {Logger} from "@nestjs/common";
