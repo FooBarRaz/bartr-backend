@@ -1,6 +1,6 @@
 import {Entity, Column, PrimaryColumn} from "typeorm";
 
-@Entity()
+@Entity("offer_read")
 export class OfferEntity {
         @PrimaryColumn()
         id: string;

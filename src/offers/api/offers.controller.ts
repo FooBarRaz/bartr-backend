@@ -6,7 +6,6 @@ import {v4 as uuidv4 } from 'uuid';
 @Controller('offers')
 export class OffersController {
     constructor(private offersService: OffersService) {
-
     }
 
     @Post()

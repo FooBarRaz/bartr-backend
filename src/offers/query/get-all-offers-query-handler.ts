@@ -7,7 +7,7 @@ import {Inject} from "@nestjs/common";
 @QueryHandler(GetAllOffersQuery)
 export class GetAllOffersQueryHandler {
     constructor(
-        @Inject('OFFER_REPOSITORY')
+        @Inject('OFFER_READ_REPOSITORY')
         private offerRepository: Repository<OfferEntity>) { }
 
     async execute(query: GetAllOffersQuery) {

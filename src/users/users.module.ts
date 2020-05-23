@@ -10,6 +10,7 @@ import {userProviders} from "./query/models/user.provider";
 import {DbModule} from "@bartr/db";
 import {User} from "./query/models/user";
 import {ConfigModule} from "@nestjs/config";
+import {ConnectionProvider} from "@bartr/db/ConnectionProvider";
 
 
 const commandHandlers = [CreateUserCommandHandler];
@@ -21,8 +22,8 @@ const queryHandlers = [GetAllUsersQueryHandler];
     providers: [
         {
             provide: 'POSTGRES_CONNECTION',
-            inject: ['POSTGRES_CONNECTION_PROVIDER'],
-            useFactory: (connectionProvider: any) => connectionProvider([User], 'users')
+            inject: [ConnectionProvider],
+            useFactory: (connectionProvider: ConnectionProvider) => connectionProvider.provide('users', [User])
         },
         UsersService,
         UserReadRepository,

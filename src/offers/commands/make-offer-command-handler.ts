@@ -17,6 +17,7 @@ export class MakeOfferCommandHandler {
         offer.initialize(userId, offering, quantity, comment, location, startTime, endTime);
         offer.commit();
         Logger.log(`Handled command for creating new offer: ${JSON.stringify(command, null, 2)}`)
+
     }
 
 }

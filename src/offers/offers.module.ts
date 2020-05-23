@@ -10,6 +10,7 @@ import {GetAllOffersQueryHandler} from "./query/get-all-offers-query-handler";
 import {ConfigModule} from "@nestjs/config";
 import {OfferEntity} from "./query/models/offer.entity";
 import {DbModule} from "@bartr/db/db.module";
+import {ConnectionProvider} from "@bartr/db/ConnectionProvider";
 
 @Module({
   imports: [CqrsModule, ConfigModule.forRoot(), DbModule],
@@ -20,15 +21,9 @@ import {DbModule} from "@bartr/db/db.module";
       OfferMadeEventHandler,
       {
           provide: 'POSTGRES_CONNECTION',
-          inject: ['POSTGRES_CONNECTION_PROVIDER'],
-          useFactory: (connectionProvider: any) =>
-              connectionProvider([OfferEntity], 'offers')
+          inject: [ConnectionProvider],
+          useFactory: (connectionProvider: ConnectionProvider) => connectionProvider.provide('offers', [OfferEntity])
       },
       ...offerProviders]
 })
-export class OffersModule {
-    constructor(
-        @Inject('POSTGRES_CONNECTION')
-        private connection: Connection) {
-    }
-}
+export class OffersModule { }

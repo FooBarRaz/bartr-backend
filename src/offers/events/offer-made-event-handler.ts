@@ -3,12 +3,11 @@ import {OfferMadeEvent} from "./offer-made-event";
 import {Inject, Logger} from "@nestjs/common";
 import {OfferEntity} from "../query/models/offer.entity";
 import {Repository} from "typeorm";
-import {InjectRepository} from "@nestjs/typeorm";
 
 @EventsHandler(OfferMadeEvent)
 export class OfferMadeEventHandler {
     constructor(
-        @Inject('OFFER_REPOSITORY')
+        @Inject('OFFER_READ_REPOSITORY')
         private offersRepository: Repository<OfferEntity>) {
 
     }
